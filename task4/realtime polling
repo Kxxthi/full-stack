@@ -1,0 +1,48 @@
+import { useState } from "react";
+
+export default function App() {
+  const [votes, setVotes] = useState({
+    Yes: 0,
+    No: 0,
+    Maybe: 0,
+  });
+
+  const vote = (option) => {
+    setVotes((prev) => ({
+      ...prev,
+      [option]: prev[option] + 1,
+    }));
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>Classroom Poll</h2>
+      <p>Do you understand today’s topic?</p>
+
+      {Object.keys(votes).map((option) => (
+        <button
+          key={option}
+          onClick={() => vote(option)}
+          style={styles.button}
+        >
+          {option} ({votes[option]})
+        </button>
+      ))}
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    maxWidth: "300px",
+    margin: "40px auto",
+    textAlign: "center",
+    fontFamily: "Arial",
+  },
+  button: {
+    width: "100%",
+    padding: "10px",
+    margin: "8px 0",
+    cursor: "pointer",
+  },
+};
