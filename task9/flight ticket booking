@@ -1,0 +1,34 @@
+export default function App() {
+  const bookTicket = () => {
+    const name = prompt("Enter passenger name:");
+    if (!name) {
+      alert("Booking cancelled!");
+      return;
+    }
+
+    const destination = prompt("Enter destination:");
+    if (!destination) {
+      alert("Booking cancelled!");
+      return;
+    }
+
+    const confirmBooking = confirm(
+      `Confirm Booking:\n\nName: ${name}\nDestination: ${destination}`
+    );
+
+    if (confirmBooking) {
+      alert(
+        `🎉 Ticket Booked Successfully!\n\nPassenger: ${name}\nDestination: ${destination}`
+      );
+    } else {
+      alert("❌ Booking not confirmed.");
+    }
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "40px" }}>
+      <h2>Flight Ticket Booking</h2>
+      <button onClick={bookTicket}>Book Ticket</button>
+    </div>
+  );
+}
