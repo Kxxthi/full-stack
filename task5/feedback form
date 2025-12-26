@@ -1,0 +1,74 @@
+import { useState } from "react";
+
+export default function App() {
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
+  const [feedbackList, setFeedbackList] = useState([]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!name || !message) return;
+
+    setFeedbackList([...feedbackList, { name, message }]);
+    setName("");
+    setMessage("");
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>Feedback Form</h2>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          placeholder="Your Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          style={styles.input}
+        />
+
+        <textarea
+          placeholder="Your Feedback"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          style={styles.input}
+        />
+
+        <button type="submit" style={styles.button}>
+          Submit
+        </button>
+      </form>
+
+      <h3>Submitted Feedback</h3>
+      {feedbackList.map((item, index) => (
+        <div key={index} style={styles.card}>
+          <strong>{item.name}</strong>
+          <p>{item.message}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    maxWidth: "400px",
+    margin: "40px auto",
+    textAlign: "center",
+    fontFamily: "Arial",
+  },
+  input: {
+    width: "100%",
+    padding: "8px",
+    margin: "6px 0",
+  },
+  button: {
+    padding: "8px 16px",
+    cursor: "pointer",
+  },
+  card: {
+    border: "1px solid #ccc",
+    padding: "8px",
+    marginTop: "8px",
+    textAlign: "left",
+  },
+};
