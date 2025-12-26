@@ -1,26 +1,97 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-function App() {
-  const [yesVotes, setYesVotes] = useState(0);
-  const [noVotes, setNoVotes] = useState(0);
+const questions = [
+  {
+    id: 1,
+    question: "What does React use to manage UI updates?",
+    options: ["DOM", "Virtual DOM", "Shadow DOM", "HTML"],
+    answer: "Virtual DOM",
+  },
+  {
+    id: 2,
+    question: "Which hook is used for state in React?",
+    options: ["useData", "useState", "useEffect", "useRef"],
+    answer: "useState",
+  },
+  {
+    id: 3,
+    question: "React is mainly used for?",
+    options: ["Database", "Styling", "User Interfaces", "Servers"],
+    answer: "User Interfaces",
+  },
+];
+
+export default function App() {
+  const [current, setCurrent] = useState(0);
+  const [score, setScore] = useState(0);
+  const [answered, setAnswered] = useState(false);
+
+  const handleAnswer = (option) => {
+    if (answered) return;
+
+    if (option === questions[current].answer) {
+      setScore(score + 1);
+    }
+    setAnswered(true);
+  };
+
+  const nextQuestion = () => {
+    setAnswered(false);
+    setCurrent(current + 1);
+  };
 
   return (
-    <div style={container}>
-      <h2>Task 4: Classroom Poll</h2>
-      <p>Do you understand React?</p>
-      <button onClick={() => setYesVotes(prev => prev + 1)}>Yes</button>
-      <button onClick={() => setNoVotes(prev => prev + 1)}>No</button>
-      <p>Yes Votes: {yesVotes}</p>
-      <p>No Votes: {noVotes}</p>
+    <div style={styles.container}>
+      <h2>Mini React Quiz</h2>
+      <p>Score: {score}</p>
+
+      {current < questions.length ? (
+        <div>
+          <h3>{questions[current].question}</h3>
+
+          {questions[current].options.map((option) => (
+            <button
+              key={option}
+              onClick={() => handleAnswer(option)}
+              style={styles.button}
+            >
+              {option}
+            </button>
+          ))}
+
+          {answered && (
+            <button onClick={nextQuestion} style={styles.nextBtn}>
+              Next Question
+            </button>
+          )}
+        </div>
+      ) : (
+        <h3>
+          Quiz Finished! 🎉 <br />
+          Final Score: {score} / {questions.length}
+        </h3>
+      )}
     </div>
   );
 }
 
-const container = {
-  width: "400px",
-  margin: "50px",
-  padding: "20px",
-  border: "1px solid #ccc",
+const styles = {
+  container: {
+    maxWidth: "400px",
+    margin: "40px auto",
+    textAlign: "center",
+    fontFamily: "Arial, sans-serif",
+  },
+  button: {
+    display: "block",
+    width: "100%",
+    margin: "8px 0",
+    padding: "10px",
+    cursor: "pointer",
+  },
+  nextBtn: {
+    marginTop: "15px",
+    padding: "10px 20px",
+    cursor: "pointer",
+  },
 };
-
-export default App;
