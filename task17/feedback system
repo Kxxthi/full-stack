@@ -1,0 +1,109 @@
+import { useState } from "react";
+
+export default function App() {
+  const [name, setName] = useState("");
+  const [rating, setRating] = useState("");
+  const [comments, setComments] = useState("");
+  const [feedbackList, setFeedbackList] = useState([]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!name || !rating || !comments) {
+      alert("Please fill in all fields!");
+      return;
+    }
+
+    const newFeedback = { name, rating, comments };
+    setFeedbackList([...feedbackList, newFeedback]);
+
+    // Clear form
+    setName("");
+    setRating("");
+    setComments("");
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>Student Feedback</h2>
+
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <input
+          type="text"
+          placeholder="Your Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          style={styles.input}
+        />
+
+        <select
+          value={rating}
+          onChange={(e) => setRating(e.target.value)}
+          style={styles.input}
+        >
+          <option value="">Select Rating</option>
+          <option value="1">1 ⭐</option>
+          <option value="2">2 ⭐</option>
+          <option value="3">3 ⭐</option>
+          <option value="4">4 ⭐</option>
+          <option value="5">5 ⭐</option>
+        </select>
+
+        <textarea
+          placeholder="Your Comments"
+          value={comments}
+          onChange={(e) => setComments(e.target.value)}
+          style={styles.textarea}
+        />
+
+        <button type="submit" style={styles.button}>Submit Feedback</button>
+      </form>
+
+      <div style={styles.feedbackList}>
+        <h3>Submitted Feedback</h3>
+        {feedbackList.length === 0 && <p>No feedback yet.</p>}
+        {feedbackList.map((fb, index) => (
+          <div key={index} style={styles.card}>
+            <strong>{fb.name}</strong> - {fb.rating} ⭐
+            <p>{fb.comments}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    maxWidth: "400px",
+    margin: "50px auto",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "10px",
+    marginBottom: "20px",
+  },
+  input: {
+    padding: "8px",
+    fontSize: "14px",
+  },
+  textarea: {
+    padding: "8px",
+    fontSize: "14px",
+    height: "60px",
+  },
+  button: {
+    padding: "8px 16px",
+    cursor: "pointer",
+  },
+  feedbackList: {
+    textAlign: "left",
+  },
+  card: {
+    border: "1px solid #ccc",
+    padding: "8px",
+    marginBottom: "8px",
+  },
+};
