@@ -1,0 +1,79 @@
+import { useState } from "react";
+
+export default function App() {
+  const [task, setTask] = useState("");
+  const [tasks, setTasks] = useState([]);
+
+  const addTask = () => {
+    if (!task) return;
+    setTasks([...tasks, task]);
+    setTask("");
+  };
+
+  const removeTask = (index) => {
+    setTasks(tasks.filter((_, i) => i !== index));
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>Task Dashboard</h2>
+
+      <input
+        placeholder="Enter task"
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
+        style={styles.input}
+      />
+
+      <button onClick={addTask} style={styles.button}>
+        Add Task
+      </button>
+
+      <ul style={styles.list}>
+        {tasks.map((item, index) => (
+          <li key={index} style={styles.item}>
+            {item}
+            <button
+              onClick={() => removeTask(index)}
+              style={styles.removeBtn}
+            >
+              ❌
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    maxWidth: "300px",
+    margin: "40px auto",
+    textAlign: "center",
+    fontFamily: "Arial",
+  },
+  input: {
+    width: "100%",
+    padding: "8px",
+    marginBottom: "6px",
+  },
+  button: {
+    padding: "6px 12px",
+    cursor: "pointer",
+  },
+  list: {
+    listStyle: "none",
+    padding: 0,
+  },
+  item: {
+    display: "flex",
+    justifyContent: "space-between",
+    margin: "6px 0",
+  },
+  removeBtn: {
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+  },
+};
