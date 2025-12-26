@@ -1,0 +1,71 @@
+import { useState } from "react";
+
+export default function App() {
+  const [studentName, setStudentName] = useState("");
+  const [course, setCourse] = useState("");
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
+
+  const enroll = (e) => {
+    e.preventDefault();
+    if (!studentName || !course) return;
+
+    setEnrolledCourses([...enrolledCourses, { studentName, course }]);
+    setStudentName("");
+    setCourse("");
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>Course Enrollment</h2>
+
+      <form onSubmit={enroll}>
+        <input
+          placeholder="Student Name"
+          value={studentName}
+          onChange={(e) => setStudentName(e.target.value)}
+          style={styles.input}
+        />
+
+        <select
+          value={course}
+          onChange={(e) => setCourse(e.target.value)}
+          style={styles.input}
+        >
+          <option value="">Select Course</option>
+          <option value="React">React</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="CSS">CSS</option>
+        </select>
+
+        <button type="submit" style={styles.button}>
+          Enroll
+        </button>
+      </form>
+
+      <h3>Enrolled Students</h3>
+      {enrolledCourses.map((item, index) => (
+        <p key={index}>
+          {item.studentName} — {item.course}
+        </p>
+      ))}
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    maxWidth: "350px",
+    margin: "40px auto",
+    textAlign: "center",
+    fontFamily: "Arial",
+  },
+  input: {
+    width: "100%",
+    padding: "8px",
+    margin: "6px 0",
+  },
+  button: {
+    padding: "8px 16px",
+    cursor: "pointer",
+  },
+};
