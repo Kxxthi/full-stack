@@ -1,0 +1,51 @@
+export default function App() {
+  const bookCab = () => {
+    const name = prompt("Enter your name:");
+    if (!name) {
+      alert("Booking cancelled!");
+      return;
+    }
+
+    const pickup = prompt("Enter pickup location:");
+    if (!pickup) {
+      alert("Booking cancelled!");
+      return;
+    }
+
+    const drop = prompt("Enter drop location:");
+    if (!drop) {
+      alert("Booking cancelled!");
+      return;
+    }
+
+    const cabType = prompt("Enter cab type (Mini / Sedan / SUV):");
+    if (!cabType) {
+      alert("Booking cancelled!");
+      return;
+    }
+
+    const confirmBooking = confirm(
+      `Confirm your cab booking:\n\nName: ${name}\nPickup: ${pickup}\nDrop: ${drop}\nCab Type: ${cabType}`
+    );
+
+    if (confirmBooking) {
+      alert(
+        `🚖 Cab Booked Successfully!\n\nPassenger: ${name}\nPickup: ${pickup}\nDrop: ${drop}\nCab Type: ${cabType}`
+      );
+    } else {
+      alert("❌ Booking not confirmed.");
+    }
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px", fontFamily: "Arial" }}>
+      <h2>Online Cab Booking</h2>
+      <button
+        onClick={bookCab}
+        style={{ padding: "10px 20px", cursor: "pointer" }}
+      >
+        Book Cab
+      </button>
+    </div>
+  );
+}
