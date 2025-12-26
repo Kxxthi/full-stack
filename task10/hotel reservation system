@@ -1,0 +1,42 @@
+export default function App() {
+  const reserveHotel = () => {
+    const name = prompt("Enter your name:");
+    if (!name) {
+      alert("Reservation cancelled!");
+      return;
+    }
+
+    const roomType = prompt("Enter room type (Single / Double):");
+    if (!roomType) {
+      alert("Reservation cancelled!");
+      return;
+    }
+
+    const nights = prompt("Number of nights:");
+    if (!nights) {
+      alert("Reservation cancelled!");
+      return;
+    }
+
+    const confirmReservation = confirm(
+      `Confirm Reservation:\n\nName: ${name}\nRoom Type: ${roomType}\nNights: ${nights}`
+    );
+
+    if (confirmReservation) {
+      alert(
+        `🏨 Reservation Successful!\n\nGuest: ${name}\nRoom: ${roomType}\nNights: ${nights}`
+      );
+    } else {
+      alert("❌ Reservation not confirmed.");
+    }
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px", fontFamily: "Arial" }}>
+      <h2>Hotel Reservation System</h2>
+      <button onClick={reserveHotel} style={{ padding: "10px 20px", cursor: "pointer" }}>
+        Reserve Room
+      </button>
+    </div>
+  );
+}
