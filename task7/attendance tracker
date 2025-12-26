@@ -1,0 +1,56 @@
+import { useState } from "react";
+
+export default function App() {
+  const [students, setStudents] = useState([
+    { name: "Alice", present: false },
+    { name: "Bob", present: false },
+    { name: "Charlie", present: false },
+  ]);
+
+  const toggleAttendance = (index) => {
+    const updated = [...students];
+    updated[index].present = !updated[index].present;
+    setStudents(updated);
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>Attendance Tracker</h2>
+
+      {students.map((student, index) => (
+        <div key={index} style={styles.row}>
+          <span>{student.name}</span>
+          <button
+            onClick={() => toggleAttendance(index)}
+            style={{
+              ...styles.button,
+              backgroundColor: student.present ? "#4CAF50" : "#f44336",
+            }}
+          >
+            {student.present ? "Present" : "Absent"}
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    maxWidth: "350px",
+    margin: "40px auto",
+    textAlign: "center",
+    fontFamily: "Arial",
+  },
+  row: {
+    display: "flex",
+    justifyContent: "space-between",
+    margin: "8px 0",
+  },
+  button: {
+    color: "#fff",
+    border: "none",
+    padding: "6px 12px",
+    cursor: "pointer",
+  },
+};
