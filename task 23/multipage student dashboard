@@ -1,0 +1,94 @@
+import React from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import "./App.css";
+
+function Dashboard() {
+  return (
+    <div className="card">
+      <h3>Dashboard</h3>
+      <p>Total Students: 3</p>
+      <p>Courses Offered: 5</p>
+    </div>
+  );
+}
+
+function Students() {
+  return (
+    <div className="card">
+      <h3>Students</h3>
+      <ul>
+        <li>Anu - B.Sc CS</li>
+        <li>Rahul - BCA</li>
+        <li>Meena - B.Tech IT</li>
+      </ul>
+    </div>
+  );
+}
+
+function Profile() {
+  return (
+    <div className="card">
+      <h3>Profile</h3>
+      <p>Name: Student Admin</p>
+      <p>Role: Administrator</p>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <div className="container">
+        <h2>Student Dashboard</h2>
+
+        <nav className="nav">
+          <Link to="/">Dashboard</Link>
+          <Link to="/students">Students</Link>
+          <Link to="/profile">Profile</Link>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/students" element={<Students />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
+}
+
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  padding: 20px;
+}
+
+.nav a {
+  margin-right: 15px;
+  text-decoration: none;
+  background: #007bff;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 4px;
+}
+
+.card {
+  margin-top: 20px;
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .nav a {
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+
+export default App;
