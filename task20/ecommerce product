@@ -1,0 +1,92 @@
+import React, { useState } from "react";
+import "./App.css";
+
+const productsData = [
+  { id: 1, name: "Laptop", price: 50000 },
+  { id: 2, name: "Headphones", price: 2000 },
+  { id: 3, name: "Smartphone", price: 25000 }
+];
+
+function App() {
+  const [cart, setCart] = useState([]);
+
+  const addToCart = (product) => {
+    setCart([...cart, product]);
+  };
+
+  return (
+    <div className="container">
+      <h2>E-Commerce Product Listing</h2>
+
+      <div className="product-list">
+        {productsData.map((product) => (
+          <div key={product.id} className="product-card">
+            <h4>{product.name}</h4>
+            <p>₹{product.price}</p>
+            <button onClick={() => addToCart(product)}>
+              Add to Cart
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <div className="cart-section">
+        <h3>Shopping Cart</h3>
+        {cart.length === 0 && <p>Cart is empty</p>}
+
+        {cart.map((item, index) => (
+          <p key={index}>
+            {item.name} - ₹{item.price}
+          </p>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  padding: 20px;
+}
+
+.product-list {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  width: 200px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.product-card button {
+  padding: 8px 12px;
+  background-color: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.cart-section {
+  margin-top: 30px;
+  padding-top: 10px;
+  border-top: 2px solid #ccc;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .product-card {
+    width: 100%;
+  }
+}
+
+
+export default App;
