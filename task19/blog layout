@@ -1,0 +1,112 @@
+import React, { useState } from "react";
+import "./App.css";
+
+function App() {
+  const [comments, setComments] = useState([]);
+  const [commentText, setCommentText] = useState("");
+
+  const addComment = () => {
+    if (commentText.trim() === "") return;
+
+    const newComment = {
+      id: Date.now(),
+      text: commentText
+    };
+
+    setComments([newComment, ...comments]);
+    setCommentText("");
+  };
+
+  return (
+    <div className="container">
+      <div className="blog-card">
+        <h2>My Blog Post</h2>
+        <p>
+          This is a sample blog post. Users can read the content and
+          add comments which update in real-time.
+        </p>
+      </div>
+
+      <div className="comment-section">
+        <h3>Comments</h3>
+
+        <input
+          type="text"
+          placeholder="Write a comment..."
+          value={commentText}
+          onChange={(e) => setCommentText(e.target.value)}
+        />
+
+        <button onClick={addComment}>Post</button>
+
+        <div className="comment-list">
+          {comments.length === 0 && <p>No comments yet</p>}
+
+          {comments.map((c) => (
+            <div key={c.id} className="comment">
+              {c.text}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 15px;
+}
+
+.blog-card {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.comment-section input {
+  width: 70%;
+  padding: 8px;
+  margin-right: 10px;
+}
+
+.comment-section button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.comment-list {
+  margin-top: 15px;
+}
+
+.comment {
+  background: #e9ecef;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .comment-section input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .comment-section button {
+    width: 100%;
+  }
+}
+
+
+export default App;
