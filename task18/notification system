@@ -1,0 +1,78 @@
+import React, { useState } from "react";
+import "./App.css";
+
+function App() {
+  const [notifications, setNotifications] = useState([]);
+
+  const addNotification = () => {
+    const newNotification = {
+      id: Date.now(),
+      message: "New notification received!"
+    };
+    setNotifications([newNotification, ...notifications]);
+  };
+
+  const removeNotification = (id) => {
+    setNotifications(notifications.filter(n => n.id !== id));
+  };
+
+  return (
+    <div className="dashboard">
+      <h2>Dashboard Notification System</h2>
+
+      <button onClick={addNotification} className="btn">
+        Add Notification
+      </button>
+
+      <div className="notification-panel">
+        {notifications.length === 0 && <p>No notifications</p>}
+
+        {notifications.map((note) => (
+          <div key={note.id} className="notification">
+            <span>{note.message}</span>
+            <button onClick={() => removeNotification(note.id)}>X</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+.dashboard {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.btn {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.notification-panel {
+  width: 300px;
+}
+
+.notification {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f1f1f1;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.notification button {
+  background: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+
+export default App;
