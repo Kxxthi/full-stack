@@ -1,0 +1,104 @@
+import React, { useState } from "react";
+import "./App.css";
+
+const studentsData = [
+  { id: 1, name: "Anu", course: "B.Sc CS", year: "2nd Year" },
+  { id: 2, name: "Rahul", course: "BCA", year: "3rd Year" },
+  { id: 3, name: "Meena", course: "B.Tech IT", year: "1st Year" }
+];
+
+function App() {
+  const [activePage, setActivePage] = useState("dashboard");
+
+  return (
+    <div className="container">
+      <h2>Student Management Dashboard</h2>
+
+      <nav className="nav">
+        <button onClick={() => setActivePage("dashboard")}>Dashboard</button>
+        <button onClick={() => setActivePage("students")}>Students</button>
+      </nav>
+
+      {activePage === "dashboard" && (
+        <div className="card">
+          <h3>Dashboard</h3>
+          <p>Total Students: {studentsData.length}</p>
+        </div>
+      )}
+
+      {activePage === "students" && (
+        <div className="card">
+          <h3>Student List</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Year</th>
+              </tr>
+            </thead>
+            <tbody>
+              {studentsData.map((student) => (
+                <tr key={student.id}>
+                  <td>{student.name}</td>
+                  <td>{student.course}</td>
+                  <td>{student.year}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  padding: 20px;
+}
+
+.nav {
+  margin-bottom: 20px;
+}
+
+.nav button {
+  padding: 8px 15px;
+  margin-right: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.card {
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  table {
+    font-size: 14px;
+  }
+}
+
+
+
+export default App;
