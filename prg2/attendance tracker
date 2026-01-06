@@ -1,0 +1,133 @@
+import React, { useState } from "react";
+import "./App.css";
+
+/* Child Component using Props */
+function StudentDetails(props) {
+  return (
+    <div className="card">
+      <h2>Student Profile</h2>
+      <p><b>Name:</b> {props.name}</p>
+      <p><b>Roll No:</b> {props.roll}</p>
+      <p><b>Department:</b> {props.department}</p>
+      <p><b>Year:</b> {props.year}</p>
+      <p><b>College:</b> {props.college}</p>
+    </div>
+  );
+}
+
+/* Component using State */
+function Attendance() {
+  const [present, setPresent] = useState(10);
+  const [absent, setAbsent] = useState(2);
+
+  const totalDays = present + absent;
+
+  return (
+    <div className="card">
+      <h2>Attendance Tracker</h2>
+
+      <p>Present Days: {present}</p>
+      <p>Absent Days: {absent}</p>
+      <p><b>Total Days:</b> {totalDays}</p>
+
+      <div className="button-group">
+        <button onClick={() => setPresent(present + 1)}>
+          Mark Present
+        </button>
+
+        <button onClick={() => setAbsent(absent + 1)}>
+          Mark Absent
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* Conditional Rendering using State */
+function ResultStatus() {
+  const [isPassed, setIsPassed] = useState(true);
+
+  return (
+    <div className="card">
+      <h2>Result Status</h2>
+
+      <p>
+        <b>Status:</b>{" "}
+        <span className={isPassed ? "pass" : "fail"}>
+          {isPassed ? "PASS" : "FAIL"}
+        </span>
+      </p>
+
+      <p>
+        <b>Grade:</b> {isPassed ? "A" : "F"}
+      </p>
+
+      <button onClick={() => setIsPassed(!isPassed)}>
+        Toggle Result
+      </button>
+    </div>
+  );
+}
+
+/* Main Parent Component */
+function App() {
+  return (
+    <div className="app-container">
+      <h1>React.js Concepts Demonstration</h1>
+
+      <StudentDetails
+        name="Anukeerthana"
+        roll="21CS045"
+        department="Artificial Intelligence & Data Science"
+        year="Final Year"
+        college="ABC Engineering College"
+      />
+
+      <Attendance />
+
+      <ResultStatus />
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+/* Main App Container */
+.app-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+/* Section Cards */
+.card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Headings */
+.card h2 {
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+/* Status Colors */
+.pass {
+  color: green;
+  font-weight: bold;
+}
+
+.fail {
+  color: red;
+  font-weight: bold;
+}
+
+/* Button Group */
+.button-group button {
+  margin-right: 10px;
+}
